@@ -33,8 +33,13 @@ function __sandbox_save(opts)
   execute("python3 framework/scripts/framework.py --save")
 end
 
+function __sandbox_load(opts)
+  require('telescope.builtin').find_files({cwd = "./ideas/"})
+end
+
 vim.keymap.set('n', '<leader>gw', sandbox)
 vim.keymap.set('n', '<leader>ge', errors)
+vim.keymap.set('n', '<leader>gl', __sandbox_load)
 vim.keymap.set('n', '<leader>gc', "<cmd>cclose<CR><cmd>ToggleTerm<CR>")
 
 vim.api.nvim_create_user_command(
@@ -49,6 +54,14 @@ vim.api.nvim_create_user_command(
   "SSave",
   function(opts)
     __sandbox_save(opts.args)
+  end,
+  { nargs = '?' }
+)
+
+vim.api.nvim_create_user_command(
+  "SLoad",
+  function(opts)
+    __sandbox_load(opts.args)
   end,
   { nargs = '?' }
 )

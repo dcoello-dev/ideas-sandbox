@@ -22,8 +22,12 @@ parser.add_argument(
     action='store_true',
     help="save idea")
 
-args = parser.parse_args()
+parser.add_argument(
+    '--load',
+    type=str,
+    help="load idea")
 
+args = parser.parse_args()
 
 def reset_idea(lang):
     os.system(f"rm main.*")
@@ -48,9 +52,14 @@ def save_idea(meta):
     os.system(f"mkdir -p ideas/{meta[1].split('.')[0]}")
     os.system(f"cp {meta[0]} ideas/{meta[1].split('.')[0]}/{meta[1]}")
 
+def load_idea(idea, lang):
+    os.system("rm main.*")
+    os.system(f"cp ideas/{idea}/{idea}.{lang} main.{lang}")
 
 if __name__ == "__main__":
     if args.reset:
         reset_idea(args.lang)
     if args.save:
         save_idea(get_meta())
+    if args.load:
+        load_idea(args.load, args.lang)
