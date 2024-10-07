@@ -1,0 +1,19 @@
+[project]
+name = "sandbox"
+version = "0.0.1"
+authors = [
+  { name="dcoello-dev", email="dcpulido91@gmail.com" },
+]
+description = "sandbox framework"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Other/Propietary License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+]
+
+[project.scripts]
+sandbox = "sandbox.__main__:main"
