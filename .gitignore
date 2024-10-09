@@ -1,2 +1,8 @@
 main.*
 output
+dist/
+env
+.env
+.venv
+venv
+src/sandbox.egg-info/
