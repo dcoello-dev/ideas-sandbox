@@ -5,11 +5,15 @@ authors = [
   { name="dcoello-dev", email="dcpulido91@gmail.com" },
 ]
 description = "sandbox framework"
+keywords = ["notes", "tool", "cli", "framework", "sandbox"]
 readme = "README.md"
+license = { file = "LICENSE.txt" }
 requires-python = ">=3.8"
 classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
-    "License :: Other/Propietary License",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
