@@ -5,4 +5,4 @@ env
 .env
 .venv
 venv
-src/sandbox.egg-info/
+src/ideas_sandbox.egg-info/

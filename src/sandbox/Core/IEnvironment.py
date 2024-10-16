@@ -17,9 +17,8 @@ class IEnvironment(ABC):
     def format(self, file_path) -> str:
         pass
 
-    @staticmethod
     @abstractmethod
-    def is_file_env(file_path) -> bool:
+    def is_file_env(self, file_path) -> bool:
         pass
 
     @abstractmethod

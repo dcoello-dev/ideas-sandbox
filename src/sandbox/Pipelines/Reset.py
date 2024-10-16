@@ -1,4 +1,6 @@
 import os
+import json
+import logging
 
 from sandbox.Core.IPipeline import IPipeline
 from sandbox.Core.RegisterPipeline import REGISTERPIPELINE
@@ -25,11 +27,15 @@ class Reset(IPipeline):
 
     def run(self, args) -> int:
         if args.env in self.env_namespace_.keys():
-            env = self.env_namespace_[args.env]["type"]()
+            env = self.env_namespace_[args.env]
             if args.output == "":
                 args.output = args.ideas
             os.system(f"rm {args.output}/main.*")
-            with open(f"{args.output}/{env.work_filename()}", 'w+') as output_file:
+            filename = f"{args.output}/{env.work_filename()}"
+            with open(filename, 'w+') as output_file:
                 output_file.write(env.template())
+                logging.info(f"created {filename} using env {args.env}")
                 return 0
+        else:
+            logging.error(f"{args.env} not in namespace: {json.dumps(list(self.env_namespace_.keys()))}")
         return 1

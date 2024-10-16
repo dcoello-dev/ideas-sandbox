@@ -1,4 +1,5 @@
 import os
+import logging
 import argparse
 
 from sandbox.Core.RegisterEnvironment import load_env_namespace
@@ -12,6 +13,14 @@ parser.add_argument(
     default=os.path.expandvars(f"{os.environ.get('SANDBOX_IDEAS', '').strip()}/"),
     help="ideas repo path")
 
+parser.add_argument(
+    '-c', '--configuration',
+    default=os.path.expandvars(f"{os.environ.get('SANDBOX_CONF', '').strip()}"),
+    help="environmet configuration file")
+
+logging.basicConfig(
+    format='%(levelname)s: %(message)s',
+    level=logging.WARNING)
 
 def main():
     subparsers = parser.add_subparsers(dest='pipeline')
@@ -21,7 +30,7 @@ def main():
         pipelines[pip]["type"].declare_args(subparsers)
 
     args = parser.parse_args()
-    env = load_env_namespace()
+    env = load_env_namespace(args.configuration)
 
     pip = pipelines[args.pipeline]["type"](env)
     pip.run(args)
