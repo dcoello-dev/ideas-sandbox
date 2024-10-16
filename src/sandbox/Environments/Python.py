@@ -9,7 +9,7 @@ class Cpp(IEnvironment):
         self.template_ = """# sandbox_idea:
 # sandbox_name:
 # sandbox_description:
-# sandbox_env: cpp
+# sandbox_env: python
 
 if __name__ == "__main__":
     print("Hello World!")

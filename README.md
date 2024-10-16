@@ -51,7 +51,13 @@ More environments will be added in the future as well as a system for users to a
 
 # installation
 
-Sandbox is a pyproject tool, just build it and install .whl package:
+For latest release:
+
+```bash
+pip install ideas-sandbox
+```
+
+For local version just build it and install .whl package:
 
 ```bash
 pip install build
