@@ -1,28 +1,13 @@
 import os
+import toml
 
-ENV_NAMESPACE = dict()
+from sandbox.Environments.ConfigurableEnvironment import GenericEnvironment
 
-
-def REGISTERENV(name: str, description: str):
-    """Register implementation.
-
-    Args:
-        name (Type): type of registered entity.
-        description (str): implementation description.
-    """
-    def wrapper(cls):
-        ENV_NAMESPACE[name] = dict(type=(cls),
-                                   description=description)
-        return cls
-    return wrapper
-
-
-def load_env_namespace() -> dict:
-    module = None
-    for module in os.listdir(os.path.dirname(
-            f"{'/'.join(__file__.split('/')[:-1])}/../Environments/")):
-        if module == '__init__.py' or module[-3:] != '.py':
-            continue
-        __import__(f"sandbox.Environments.{module[:-3]}", locals(), globals())
-    del module
-    return ENV_NAMESPACE
+def load_env_namespace(input_conf):
+    ret = dict()
+    with open(input_conf, "r") as conf:
+        tml = toml.loads(conf.read())
+        for k in tml:
+            tml[k]["name"] = k
+            ret[k] = GenericEnvironment(tml[k])
+    return ret

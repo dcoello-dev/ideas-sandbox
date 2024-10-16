@@ -1,4 +1,5 @@
 import os
+import logging
 
 from sandbox.Core.IPipeline import IPipeline
 from sandbox.Core.RegisterPipeline import REGISTERPIPELINE
@@ -22,6 +23,7 @@ class Save(IPipeline):
         os.system(f"mkdir -p {args.ideas}/{meta['sandbox_idea']}")
         idea_name = f'{args.ideas}/{meta["sandbox_idea"]}/{meta["sandbox_name"]}.{args.path.split(".")[-1]}'
         os.system(f"cp {args.path} {idea_name}")
+        logging.info(f"saved {idea_name}")
 
     def _get_work_idea_path(self, path):
         for file in os.listdir(path):
@@ -37,9 +39,8 @@ class Save(IPipeline):
             args.path = self._get_work_idea_path(args.path)
         if os.path.isfile(args.path):
             for env in self.env_namespace_:
-                if self.env_namespace_[env]["type"].is_file_env(args.path):
-                    env = self.env_namespace_[env]["type"]()
+                if self.env_namespace_[env].is_file_env(args.path):
+                    env = self.env_namespace_[env]
                     self._save_file(args, env.extract_meta(args.path))
                     return 1
-
         return 1

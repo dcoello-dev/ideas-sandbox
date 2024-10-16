@@ -28,11 +28,11 @@ class Execute(IPipeline):
         env = None
 
         if args.env and args.env in self.env_namespace_.keys():
-            env = self.env_namespace_[args.env]["type"]()
+            env = self.env_namespace_[args.env]
         else:
             for e in self.env_namespace_.keys():
-                if self.env_namespace_[e]["type"].is_file_env(file_path):
-                    env = self.env_namespace_[e]["type"]()
+                if self.env_namespace_[e].is_file_env(file_path):
+                    env = self.env_namespace_[e]
 
         if env:
             os.system(env.format(file_path))

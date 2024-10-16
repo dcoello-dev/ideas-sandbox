@@ -39,15 +39,7 @@ Sandbox automates the creation of the file for an specific environment and the f
 
 ## environment
 
-An environment is the specific part of sandbox that knows how to deal with an specific programming language or knows how to do an specific thing, for example, at the moment sandbox have support for:
-
-- **cpp**: builds, formats and executes cpp.
-- **bash**: executes bash.
-- **python**: style and execution.
-- **markdown**: shows using Glow.
-- **echo**: batcats any file.
-
-More environments will be added in the future as well as a system for users to add their own environments without having to contribute to sandbox.
+An environment is the specific part of sandbox that knows how to deal with an specific programming language or knows how to do an specific thing related to an idea, each idea specifies its environment in the top metadata, more about this in configuration section.
 
 # installation
 
@@ -74,6 +66,7 @@ Defaults for sandbox are defined through environment variables, those defaults c
 ```bash
 export SANDBOX_IDEAS="path/to/your/ideas"
 export SANDBOX_EDITOR="your favourite editor (neovim)"
+export SANDBOX_CONF="path to your conf.toml file"
 ```
 
 ## SANDBOX_IDEAS
@@ -83,6 +76,62 @@ This env variable points to your ideas folder, is where you are going to store a
 ## SANDBOX_EDITOR
 
 Sandbox have a use case that allows to open for edition an idea, this env var set ups the default editor, if this variable is not set it fallsback to vim.
+
+## SANDBOX_CONF
+
+Sandbox need to know wich environments do you need for your ideas codebase, this can be defined in a toml configuraion file.
+
+This is one configuration example that supports python and cpp languages:
+
+```toml
+[cpp]
+ext = "cpp"
+execution = "g++ ${file_path} -o out && ./out && rm out"
+format = "clang-format -i ${file_path}"
+template = """// sandbox_idea:
+// sandbox_name:
+// sandbox_description:
+// sandbox_env: cpp
+
+#include <iostream>
+
+int main(void) {
+    std::cout << "Hello World!" << std::endl;
+    return 0;
+}"""
+
+[python]
+ext = "py"
+execution = "python3 ${file_path}"
+format = "autopep8 -i ${file_path}"
+template = """# sandbox_idea: 
+# sandbox_name: 
+# sandbox_description: 
+# sandbox_env: python
+
+if __name__ == "__main__":
+    print("Hello World!")
+"""
+```
+
+you can add as much environments as you want, remember that you can always force an environment on an idea even if makes no sense, this opens a lot of possibilities, for example, an environment that batcats ideas:
+
+```toml
+[echo]
+ext = ""
+execution = "batcat ${file_path}"
+format = ""
+template = """"""
+```
+
+Only execution field is defined but, that is fine, echo env is not designed to be a main environment for an idea.
+
+Other possible enviroments are for example:
+- environment to create a pdf from md.
+- environment to share an idea through Godbolt.
+- environment to create a commit and push current idea.
+- environment to render plantuml diagram.
+- environment to run specific static analyzers on an idea.
 
 # usage
 
