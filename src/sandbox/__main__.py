@@ -10,17 +10,21 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument(
     '-i', '--ideas',
-    default=os.path.expandvars(f"{os.environ.get('SANDBOX_IDEAS', '').strip()}/"),
+    default=os.path.expandvars(
+        f"{os.environ.get('SANDBOX_IDEAS', '').strip()}/"),
     help="ideas repo path")
 
 parser.add_argument(
     '-c', '--configuration',
-    default=os.path.expandvars(f"{os.environ.get('SANDBOX_CONF', '').strip()}"),
+    default=os.path.expandvars(
+        f"{os.environ.get('SANDBOX_CONF', '').strip()}"),
     help="environmet configuration file")
 
-logging.basicConfig(
-    format='%(levelname)s: %(message)s',
-    level=logging.WARNING)
+parser.add_argument(
+    '-v', '--log_level',
+    default="warning",
+    help="app log level")
+
 
 def main():
     subparsers = parser.add_subparsers(dest='pipeline')
@@ -30,6 +34,12 @@ def main():
         pipelines[pip]["type"].declare_args(subparsers)
 
     args = parser.parse_args()
+
+    logging.basicConfig(
+        format='%(asctime)s %(levelname)s:%(message)s',
+        level=eval(f"logging.{args.log_level.upper()}"))
+    logging.info(f"sandbox {args.pipeline}")
+
     env = load_env_namespace(args.configuration)
 
     pip = pipelines[args.pipeline]["type"](env)
