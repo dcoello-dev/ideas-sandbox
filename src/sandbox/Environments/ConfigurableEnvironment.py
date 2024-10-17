@@ -6,7 +6,7 @@ from sandbox.Core.IEnvironment import IEnvironment
 class GenericEnvironment(IEnvironment):
 
     def __init__(self, env):
-        self.matcher_ = r"(sandbox_[a-z]+):\s*([a-z]*)"
+        self.matcher_ = r"(sandbox_[a-z]+):\s*(([a-z]*/*_*-* *)*)"
         self.env_ = env
 
     def template(self) -> str:
