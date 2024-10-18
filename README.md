@@ -137,20 +137,7 @@ Other possible enviroments are for example:
 
 Once installed you will be able to run `sandbox` command, check it like this:
 
-```bash
-➜  sandbox --help
-usage: sandbox [-h] [-i IDEAS] {reset,open,save,execute} ...
-
-sandbox framework
-
-positional arguments:
-  {reset,open,save,execute}
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -i IDEAS, --ideas IDEAS
-                        ideas repo path
-```
+![sandbox_help](./doc/images/sandbox_help.gif)
 
 Optional argument `-i` is to override env var `SANDBOX_IDEAS`.
 
@@ -171,16 +158,7 @@ sandbox execute --help
 
 Any time you have a new idea run this command, this is going to create a new work idea of the environment of your selection:
 
-```bash
-➜  sandbox reset --help
-usage: sandbox reset [-h] -e ENV [-o OUTPUT]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -e ENV, --env ENV     environment to use
-  -o OUTPUT, --output OUTPUT
-                        output work file
-```
+![sandbox_help](./doc/images/sandbox_reset.gif)
 
 arguments:
 - env: an environment is the "language support" to use, the implementation that knows how to format, execute and generate a template of idea.
@@ -206,17 +184,7 @@ If you use reset where you already have a work idea this command is going to del
 
 Open idea on work editor:
 
-```bash
-➜  sandbox open --help
-usage: sandbox open [-h] [-e EDITOR] [-p PATH]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -e EDITOR, --editor EDITOR
-                        editor to use
-  -p PATH, --path PATH  idea or directory path
-  -w, --work_idea       open current work idea
-```
+![sandbox_help](./doc/images/sandbox_open.gif)
 
 Without arguments sandbox will open fzf in `SANDBOX_IDEAS` to choose one.
 
@@ -238,15 +206,7 @@ sandbox -i ~/example -w # this will open ~/example/main*
 
 An `idea` is code note, is a small self contained example of code like a Godbolt example, if it is self contained it can be executed by its own, an idea environment is the environment that knows how to execute this specific idea.
 
-```bash
-➜  sandbox execute --help
-usage: sandbox execute [-h] [-p PATH] [-e ENV]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -p PATH, --path PATH  work file or ideas directory
-  -e ENV, --env ENV     force specific env regardless file meta
-```
+![sandbox_help](./doc/images/sandbox_execute.gif)
 
 Without arguments sandbox will open fzf in `SANDBOX_IDEAS` to choose one.
 
@@ -268,14 +228,7 @@ sandbox execute -e echo # this will open fzf on `SANDBOX_IDEAS` and execute the 
 
 When you create a new idea and this shows that actually have some value you can store it in your `SANDBOX_IDEAS` folder.
 
-```bash
-➜  sandbox save --help
-usage: sandbox save [-h] -p PATH
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -p PATH, --path PATH  work file
-```
+![sandbox_help](./doc/images/sandbox_save.gif)
 
 By default save command is going to save work idea under your `SANDBOX_IDEAS` dir.
 
